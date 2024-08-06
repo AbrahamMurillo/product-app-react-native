@@ -27,15 +27,16 @@ const fadeAnimation: StackCardStyleInterpolator = ({ current }) => {
 export default function StackNavigator() {
     return (
         <Stack.Navigator
+            initialRouteName='LoadingScreen'
             screenOptions={{
                 headerShown: false,
                 //cardStyleInterpolator: fadeAnimation
             }}>
-            <Stack.Screen  options={{cardStyleInterpolator: fadeAnimation}} name="LoginScreenAuth" component={LoginScreen} />
-            <Stack.Screen options={{cardStyleInterpolator: fadeAnimation}} name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen options={{cardStyleInterpolator: fadeAnimation}} name="RegisterScreen" component={RegisterScreen} />
+            <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name="LoginScreenAuth" component={LoginScreen} />
+            <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="ProductScreen" component={ProductScreen} />
-            <Stack.Screen options={{cardStyleInterpolator: fadeAnimation}} name="LoadingScreen" component={LoadingScreen} />
+            <Stack.Screen options={{ cardStyleInterpolator: fadeAnimation }} name="LoadingScreen" component={LoadingScreen} />
         </Stack.Navigator>
     )
 }
