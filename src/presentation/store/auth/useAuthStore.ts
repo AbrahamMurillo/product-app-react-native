@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { User } from "../../../domain/entities/user";
-import { AuthStatus } from "../../../infraestructure/auth.status";
+import { AuthStatus } from "../../../infraestructure/interfaces/auth.status";
 import { authCheckStatus, authLogin } from "../../../actions/auth/auth";
 import { StorageAdapter } from "../../../config/adapters/async-storage";
 

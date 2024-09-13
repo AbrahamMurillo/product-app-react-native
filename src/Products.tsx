@@ -6,8 +6,10 @@ import { ApplicationProvider, IconRegistry, Layout, Text } from '@ui-kitten/comp
 import * as eva from '@eva-design/eva';
 import { useColorScheme } from 'react-native';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { API_URL, STAGE } from '@env';
 import AuthProvider from './presentation/providers/AuthProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient()
 
 export default function ProductsApp() {
 
@@ -17,9 +19,8 @@ export default function ProductsApp() {
         ? theme["color-basic-800"]
         : theme["color-basic-100"]
 
-    console.log(`${API_URL}`, STAGE)
     return (
-        <>
+        <QueryClientProvider client={queryClient}>
             <IconRegistry icons={EvaIconsPack} />
             <ApplicationProvider
                 {...eva} theme={theme}
@@ -40,7 +41,7 @@ export default function ProductsApp() {
                     </AuthProvider>
                 </NavigationContainer>
             </ApplicationProvider>
-        </>
+        </QueryClientProvider >
 
     )
 }

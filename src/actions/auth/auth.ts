@@ -4,7 +4,7 @@
 
 import { tesloApi } from "../../config/api/tesloApi"
 import { User } from "../../domain/entities/user"
-import type { AuthResponse } from "../../infraestructure/auth.response"
+import type { AuthResponse } from "../../infraestructure/interfaces/auth.response"
 
 const returnUserToken = (data: AuthResponse) => {
     const user: User = {
