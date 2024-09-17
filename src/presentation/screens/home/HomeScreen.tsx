@@ -6,10 +6,16 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import MainLayout from '../../layouts/MainLayout'
 import FullScreenLoader from '../../components/FullScreenLoader'
 import ProductsList from '../../components/products/ProductsList'
+import FAB from '../../components/ui/FAB'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParams } from '../../navigation/StackNavigator'
+
+type ProductsScreenNavigationProps = StackNavigationProp<RootStackParams, 'HomeScreen'>
 
 export default function HomeScreen() {
-  const { logout } = useAuthStore()
-
+  //const { logout } = useAuthStore()
+  const navigation = useNavigation<ProductsScreenNavigationProps>()
   // const { isLoading, data: products = [] } = useQuery({
   //   queryKey: ['products', 'infinite'],
   //   staleTime: 1000 * 60 * 60,
@@ -29,15 +35,26 @@ export default function HomeScreen() {
 
   //getProductsByPage(0)
   return (
-    <MainLayout
-      title='Teslo-App - Products'
-      subTitle='Administracion'
-    >
-      {
-        isLoading
-          ? (<FullScreenLoader />)
-          : <ProductsList fetchNextPage={fetchNextPage} products={data?.pages.flat() ?? []} />
-      }
-    </MainLayout>
+    <>
+      <MainLayout
+        title='Teslo-App - Products'
+        subTitle='Administracion'
+      >
+        {
+          isLoading
+            ? (<FullScreenLoader />)
+            : <ProductsList fetchNextPage={fetchNextPage} products={data?.pages.flat() ?? []} />
+        }
+      </MainLayout>
+      <FAB
+        iconName='plus-outline'
+        style={{
+          position: 'absolute',
+          bottom: 30,
+          right: 20,
+        }}
+        onPress={() => navigation.navigate('ProductScreen', { productId: "new" })}
+      />
+    </>
   )
 }

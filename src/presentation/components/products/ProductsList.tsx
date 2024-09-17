@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Producto } from '../../../domain/entities/product'
 import { Layout, List } from '@ui-kitten/components';
 import { ProductCard } from './ProductCard';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface Props {
   products: Producto[];
@@ -12,12 +13,12 @@ interface Props {
 export default function ProductsList({ products, fetchNextPage }: Props) {
 
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const queryClient = useQueryClient()
 
   const onPullToRefresh = async () => {
     setIsRefreshing(true)
-
+    queryClient.cancelQueries({queryKey:['products','infinite']})
     setIsRefreshing(false)
-
   }
 
   return (
