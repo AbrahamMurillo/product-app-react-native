@@ -1,25 +1,16 @@
 import React, { useRef } from 'react'
+import { ScrollView } from 'react-native'
 import MainLayout from '../../layouts/MainLayout'
 import { Button, ButtonGroup, Input, Layout, Text, useTheme } from '@ui-kitten/components'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { StackScreenProps } from '@react-navigation/stack'
 import { RootStackParams } from '../../navigation/StackNavigator'
-import { getProductById } from '../../../actions/products/get-product-by-id'
-import { ScrollView } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler'
-import { FadeInImage } from '../../components/ui/FadeInImage'
-import { Gender, Producto, Size } from '../../../domain/entities/product'
+import { getProductById, updateCreateProduct } from '../../../actions/products'
+import { Producto } from '../../../domain/entities/product'
 import CustomIcon from '../../components/ui/CustomIcon'
 import { Formik } from 'formik'
-import { updateCreateProduct } from '../../../actions/products/update-create-product'
-
-const sizes: Size[] = [
-  Size.L, Size.M, Size.S, Size.Xl, Size.Xs, Size.Xxl
-]
-
-const genders: Gender[] = [
-  Gender.Kid, Gender.Men, Gender.Unisex, Gender.Women
-]
+import ProductSlide from '../../components/products/ProductSlide'
+import { genders, sizes } from '../../../config/constast/constast'
 
 interface Props extends StackScreenProps<RootStackParams, 'ProductScreen'> { }
 
@@ -60,23 +51,8 @@ export default function ProductScreen({ route }: Props) {
             title={values.title}
             subTitle={`Precio ${values.price}`} >
             <ScrollView style={{ flex: 1 }} >
-              <Layout  >
-                <FlatList
-                  data={values.images}
-                  horizontal
-                  keyExtractor={(item) => item}
-                  showsHorizontalScrollIndicator={false}
-                  renderItem={({ item }) => (
-                    <FadeInImage
-                      uri={item}
-                      style={{
-                        width: 300,
-                        height: 300,
-                        margin: 7,
-                      }}
-                    />
-                  )}
-                />
+              <Layout style={{ marginVertical: 10, justifyContent: 'center', alignItems: "center" }} >
+                <ProductSlide images={values.images} />
                 <Layout style={{ marginHorizontal: 10, }}>
                   <Input
                     label="Titulo del producto"
