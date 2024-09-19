@@ -11,6 +11,7 @@ import CustomIcon from '../../components/ui/CustomIcon'
 import { Formik } from 'formik'
 import ProductSlide from '../../components/products/ProductSlide'
 import { genders, sizes } from '../../../config/constast/constast'
+import { CameraAdapter } from '../../../config/adapters/camera-adapter'
 
 interface Props extends StackScreenProps<RootStackParams, 'ProductScreen'> { }
 
@@ -49,7 +50,14 @@ export default function ProductScreen({ route }: Props) {
         ({ handleChange, handleSubmit, values, errors, setFieldValue }) => (
           <MainLayout
             title={values.title}
-            subTitle={`Precio ${values.price}`} >
+            subTitle={`Precio ${values.price}`}
+            rightAction={async () => {
+              // const photos = await CameraAdapter.takePicture()
+              const photos = await CameraAdapter.getPicturesFromLibrary()
+              setFieldValue('images', [...values.images, photos])
+            }}
+            rightActionIcon='image-outline'
+          >
             <ScrollView style={{ flex: 1 }} >
               <Layout style={{ marginVertical: 10, justifyContent: 'center', alignItems: "center" }} >
                 <ProductSlide images={values.images} />
